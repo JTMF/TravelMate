@@ -117,19 +117,34 @@
     <script src="js/main.js"></script>
     
     <!-- Botpress Chatbot Integration -->
+    <script
+        dangerouslyAllowHtml="true"
+        id="bp-web-widget"
+        src="https://cdn.botpress.cloud/webchat/v3.5/inject.js"
+        contentscript-id="fcf2cd53-c5d9-4d3e-b3cc-0281a6e33e5f"
+    ></script>
     <script>
-        (function() {
-            const script = document.createElement('script');
-            script.src = 'https://cdn.botpress.cloud/webchat/v3.5/inject.js';
-            script.async = true;
-            document.head.appendChild(script);
-            
-            script.onload = function() {
+        function initBotpress() {
+            if (window.botpressWebChat) {
                 window.botpressWebChat.init({
-                    configUrl: 'https://files.bpcontent.cloud/2026/01/12/04/20260112043815-JSGWJ2YJ.json'
+                    configUrl: 'https://files.bpcontent.cloud/2026/01/12/04/20260112043815-JSGWJ2YJ.json',
+                    containerWidth: '100%',
+                    layoutWidth: 'full',
+                    showConversationStart: true,
+                    hideWidget: false
                 });
-            };
-        })();
+            } else {
+                // Retry if widget not loaded yet
+                setTimeout(initBotpress, 1000);
+            }
+        }
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initBotpress);
+        } else {
+            initBotpress();
+        }
     </script>
 </body>
 </html>
