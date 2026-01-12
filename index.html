@@ -24,7 +24,7 @@
                 <li><a href="#food" class="nav-link">Food & Dining</a></li>
                 <li><a href="#leisure" class="nav-link">Leisure</a></li>
                 <li><a href="#daily-life" class="nav-link">Daily Life</a></li>
-                <li><a href="#chat" class="nav-link chatbot-trigger">AI Chat</a></li>
+                <li><a href="#chat" class="nav-link">AI Chat</a></li>
             </ul>
         </div>
     </nav>
@@ -99,12 +99,12 @@
         </div>
     </section>
 
-    <!-- Chat Section with Botpress Integration -->
+    <!-- Chat Section -->
     <section id="chat" class="chat-section">
         <div class="container">
             <h2>💬 AI Chat Assistant</h2>
             <p>Get instant personalized recommendations for your needs.</p>
-            <div id="botpress-container" class="botpress-chat-widget"></div>
+            <p style="color: #999; font-size: 12px; margin-bottom: 1rem;">Powered by Botpress AI</p>
         </div>
     </section>
 
@@ -116,60 +116,10 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Scripts - Load in correct order -->
     <script src="js/botpress-config.js"></script>
     <script src="js/data.js"></script>
     <script src="js/leisure.js"></script>
     <script src="js/main.js"></script>
-    
-    <!-- Botpress Chatbot - Standard Integration -->
-    <script>
-        // Toggle chat widget visibility
-        function toggleChatWidget() {
-            if (window.botpressWebChat) {
-                window.botpressWebChat.sendEvent({
-                    type: 'show'
-                });
-            }
-        }
-        
-        (function() {
-            var d = document;
-            var w = window;
-            var config = window.botpressConfig || {};
-            
-            function loadBotpress() {
-                if (w.botpressWebChat) {
-                    w.botpressWebChat.init({
-                        configUrl: config.configUrl,
-                        hideWidget: config.hideWidget
-                    });
-                }
-            }
-            
-            // Load Botpress script
-            var s = d.createElement('script');
-            s.src = config.sdkUrl;
-            s.onload = loadBotpress;
-            s.onerror = function() {
-                console.error('Failed to load Botpress SDK');
-                // Retry after 2 seconds
-                setTimeout(function() {
-                    var retry = d.createElement('script');
-                    retry.src = config.sdkUrl;
-                    retry.onload = loadBotpress;
-                    d.head.appendChild(retry);
-                }, 2000);
-            };
-            d.head.appendChild(s);
-            
-            // Fallback initialization
-            setTimeout(function() {
-                if (w.botpressWebChat && !w.botpressWebChat.isInitialized) {
-                    loadBotpress();
-                }
-            }, 3000);
-        })();
-    </script>
 </body>
 </html>
