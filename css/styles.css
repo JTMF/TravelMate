@@ -1,560 +1,72 @@
 /* ============================
-   TravelMate CSS Stylesheet - REWRITTEN
-   Color Scheme:
-   - Red: #B40000 (CTAs, highlights)
-   - White: #FFFFFF (backgrounds)
-   - Green: #486220 (secondary, nature)
-   ============================ */
+   Chat Modal Styles
+============================ */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --primary-red: #B40000;
-    --white: #FFFFFF;
-    --secondary-green: #486220;
-    --text-dark: #333333;
-    --text-light: #666666;
-    --bg-light: #f9f9f9;
-    --border-color: #e0e0e0;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: var(--text-dark);
-    background-color: var(--white);
-}
-
-/* ====== Floating Chat Icon Button ====== */
-.chat-icon-btn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary-red), #8b0000);
-    border: none;
-    color: white;
-    font-size: 28px;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(180, 0, 0, 0.4);
-    z-index: 999;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.chat-icon-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 16px rgba(180, 0, 0, 0.6);
-}
-
-.chat-icon-btn:active {
-    transform: scale(0.95);
-}
-
-.chat-icon {
-    display: inline-block;
-    animation: chatPulse 2s infinite;
-}
-
-@keyframes chatPulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-}
-
-/* ====== Chat Modal ====== */
 .chat-modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 1000;
+    bottom: 80px;
+    right: 20px;
+    width: 360px;
+    height: 520px;
+    background: rgba(0,0,0,0.4);
     display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+    z-index: 9999;
 }
 
 .chat-modal.open {
-    display: flex !important;
+    display: block;
 }
 
 .chat-modal-content {
-    background: white;
-    width: 100%;
-    height: 80vh;
-    max-width: 500px;
-    max-height: 600px;
-    border-radius: 12px;
-    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
-    position: relative;
-    overflow: hidden;
-    animation: slideUp 0.3s ease;
-}
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.chat-modal-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: #f0f0f0;
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 24px;
-    z-index: 1001;
+    background: #fff;
+    height: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.chat-modal-close:hover {
-    background: #e0e0e0;
-    transform: scale(1.1);
-}
-
-/* Mobile responsiveness for chat icon */
-@media (max-width: 480px) {
-    .chat-icon-btn {
-        width: 55px;
-        height: 55px;
-        bottom: 20px;
-        right: 20px;
-        font-size: 24px;
-    }
-
-    .chat-modal-content {
-        width: 95%;
-        height: 95vh;
-    }
-}
-
-/* ====== Navigation Bar ====== */
-.navbar {
-    background-color: var(--white);
-    border-bottom: 3px solid var(--primary-red);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
+/* Chat Header */
+.chat-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 8px 12px;
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+    z-index: 10;
 }
 
-.logo h1 {
-    color: var(--primary-red);
-    font-size: 1.8rem;
-}
-
-.nav-menu {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-}
-
-.nav-link {
-    text-decoration: none;
-    color: var(--text-dark);
-    font-weight: 500;
-    transition: color 0.3s ease;
-    border-bottom: 3px solid transparent;
-    padding-bottom: 0.5rem;
-}
-
-.nav-link:hover,
-.nav-link.active {
-    color: var(--primary-red);
-    border-bottom-color: var(--primary-red);
-}
-
-.chatbot-trigger {
-    background-color: var(--primary-red);
-    color: var(--white);
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
+.chat-header button {
+    background: none;
     border: none;
+    cursor: pointer;
+    font-size: 14px;
 }
 
-.chatbot-trigger:hover {
-    background-color: #8B0000;
-}
-
-/* ====== Container ====== */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-/* ====== Hero Section ====== */
-.hero {
-    background: linear-gradient(135deg, var(--primary-red) 0%, #8B0000 100%);
-    color: var(--white);
-    padding: 4rem 2rem;
-    text-align: center;
-}
-
-.hero-content h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    opacity: 0.95;
-}
-
-.cta-button {
-    background-color: var(--white);
-    color: var(--primary-red);
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1rem;
+.delete-chat-btn {
+    color: #b40000;
     font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* ====== Leisure Section ====== */
-.leisure-section {
-    padding: 4rem 2rem;
-    background-color: var(--white);
-}
-
-.leisure-section h2 {
-    font-size: 2.2rem;
-    color: var(--primary-red);
-    margin-bottom: 0.5rem;
-    text-align: center;
-}
-
-.section-intro {
-    text-align: center;
-    color: var(--text-light);
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-}
-
-/* ====== Filter Buttons ====== */
-.filter-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 3rem;
-}
-
-.filter-btn {
-    padding: 0.7rem 1.5rem;
-    border: 2px solid var(--border-color);
-    background-color: var(--white);
-    color: var(--text-dark);
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.filter-btn:hover,
-.filter-btn.active {
-    background-color: var(--primary-red);
-    color: var(--white);
-    border-color: var(--primary-red);
-}
-
-/* ====== Leisure Grid ====== */
-.leisure-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
-}
-
-.leisure-card {
-    background-color: var(--white);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-.leisure-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(180, 0, 0, 0.15);
-}
-
-.leisure-card-image {
+/* Iframe */
+#botpressChatFrame {
+    flex: 1;
     width: 100%;
-    height: 200px;
-    background-color: var(--bg-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-}
-
-.leisure-card-content {
-    padding: 1.5rem;
-}
-
-.leisure-card-title {
-    font-size: 1.3rem;
-    color: var(--primary-red);
-    margin-bottom: 0.5rem;
-}
-
-.leisure-card-category {
-    display: inline-block;
-    background-color: var(--secondary-green);
-    color: var(--white);
-    padding: 0.3rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    margin-bottom: 1rem;
-}
-
-.leisure-card-description {
-    color: var(--text-light);
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
-}
-
-.leisure-card-info {
-    font-size: 0.85rem;
-    color: var(--text-light);
-    margin-bottom: 0.5rem;
-}
-
-.leisure-card-budget {
-    font-weight: bold;
-    color: var(--secondary-green);
-}
-
-.learn-more-btn {
-    background-color: var(--primary-red);
-    color: var(--white);
     border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-    width: 100%;
-    margin-top: 1rem;
 }
 
-.learn-more-btn:hover {
-    background-color: #8B0000;
-}
-
-/* ====== General Section ====== */
-.section {
-    padding: 4rem 2rem;
-    background-color: var(--bg-light);
-    border-top: 3px solid var(--primary-red);
-}
-
-.section:nth-child(even) {
-    background-color: var(--white);
-}
-
-.section h2 {
-    font-size: 2rem;
-    color: var(--primary-red);
-    margin-bottom: 1rem;
-}
-
-/* ====== Chat Section ====== */
-.chat-section {
-    padding: 4rem 2rem;
-    background-color: var(--white);
-    border-top: 3px solid var(--primary-red);
-}
-
-.chat-section h2 {
-    font-size: 2rem;
-    color: var(--primary-red);
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.chat-section > .container > p {
-    text-align: center;
-    color: var(--text-light);
-    margin-bottom: 2rem;
-}
-
-
-
-
-
-/* ====== Modal ====== */
-.modal {
-    display: none;
+/* Floating Button */
+.chat-icon-btn {
     position: fixed;
-    z-index: 200;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal.show {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-content {
-    background-color: var(--white);
-    margin: 5% auto;
-    padding: 2rem;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 600px;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    position: relative;
-}
-
-.close {
-    position: absolute;
-    right: 1.5rem;
-    top: 1rem;
-    font-size: 2rem;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    font-size: 24px;
     cursor: pointer;
-    color: var(--text-light);
+    background: #b40000;
+    color: white;
 }
-
-.close:hover {
-    color: var(--primary-red);
-}
-
-#modalBody h3 {
-    color: var(--primary-red);
-    margin-top: 1rem;
-}
-
-#modalBody h3:first-child {
-    margin-top: 0;
-}
-
-#modalBody p {
-    margin: 0.8rem 0;
-    line-height: 1.7;
-}
-
-/* ====== Footer ====== */
-.footer {
-    background-color: var(--text-dark);
-    color: var(--white);
-    text-align: center;
-    padding: 2rem;
-    margin-top: 4rem;
-}
-
-/* ====== Responsive Design ====== */
-@media (max-width: 768px) {
-    .nav-menu {
-        gap: 0.8rem;
-        font-size: 0.9rem;
-    }
-
-    .hero-content h1 {
-        font-size: 1.8rem;
-    }
-
-    .hero-content p {
-        font-size: 1rem;
-    }
-
-    .leisure-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .filter-buttons {
-        gap: 0.5rem;
-    }
-
-    .filter-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-    }
-
-    .chat-messages {
-        height: 300px;
-    }
-
-    .modal-content {
-        width: 95%;
-    }
-    
-    .ai-settings-modal {
-        width: 95%;
-    }
-}
-
-@media (max-width: 480px) {
-    .nav-container {
-        padding: 1rem;
-    }
-
-    .nav-menu {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .hero-content h1 {
-        font-size: 1.5rem;
-    }
-
-    .leisure-card-image {
-        height: 150px;
-        font-size: 2.5rem;
-    }
-}
-
-
