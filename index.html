@@ -94,70 +94,14 @@
         </div>
     </section>
 
-    <!-- Chat Section -->
+    <!-- Chat Section with Botpress Integration -->
     <section id="chat" class="chat-section">
         <div class="container">
             <h2>💬 AI Chat Assistant</h2>
             <p>Get instant personalized recommendations for your needs.</p>
-            <div class="chat-controls">
-                <button class="settings-btn" onclick="openAISettings()" title="Configure AI Settings">⚙️ AI Settings</button>
-                <button class="clear-btn" onclick="clearChat()" title="Clear chat history">🗑️ Clear Chat</button>
-            </div>
-            <div class="chat-container" id="chatContainer">
-                <div class="chat-messages" id="chatMessages"></div>
-                <div class="chat-input-area">
-                    <input type="text" id="chatInput" placeholder="Ask me about leisure activities, parks, shopping..." />
-                    <button onclick="sendMessage()" class="chat-send-btn">Send</button>
-                </div>
-            </div>
+            <div id="botpress-container" class="botpress-chat-widget"></div>
         </div>
     </section>
-
-    <!-- AI Settings Modal -->
-    <div id="aiSettingsModal" class="modal">
-        <div class="modal-content ai-settings-modal">
-            <span class="close" onclick="closeAISettings()">&times;</span>
-            <h2>⚙️ AI Configuration</h2>
-            
-            <!-- Enable/Disable External AI -->
-            <div class="settings-section">
-                <label class="toggle-label">
-                    <input type="checkbox" id="enableExternalAI" onchange="toggleExternalAI()" />
-                    <span>Enable External AI (OpenAI/Claude)</span>
-                </label>
-                <p class="help-text">Toggle between local keyword-based responses and external AI services.</p>
-            </div>
-            
-            <!-- Provider Selection -->
-            <div class="settings-section">
-                <label for="aiProvider">AI Provider:</label>
-                <select id="aiProvider" onchange="changeAIProvider()">
-                    <option value="openai">OpenAI (GPT-3.5)</option>
-                    <option value="anthropic">Anthropic (Claude)</option>
-                </select>
-                <p class="help-text">Choose your preferred AI service provider.</p>
-            </div>
-            
-            <!-- API Key Input -->
-            <div class="settings-section">
-                <label for="apiKeyInput">API Key:</label>
-                <input type="password" id="apiKeyInput" placeholder="Enter your API key (stored locally only)" />
-                <p class="help-text">Your API key is stored in browser storage and never sent to external servers.</p>
-            </div>
-            
-            <!-- Test Connection -->
-            <div class="settings-section">
-                <button class="test-btn" onclick="testAIConnection()">Test Connection</button>
-                <div id="connectionStatus"></div>
-            </div>
-            
-            <!-- Save Button -->
-            <div class="settings-actions">
-                <button class="save-btn" onclick="saveAISettings()">Save Settings</button>
-                <button class="cancel-btn" onclick="closeAISettings()">Cancel</button>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -168,11 +112,24 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="js/ai-config.js"></script>
-    <script src="js/ai-service.js"></script>
     <script src="js/data.js"></script>
     <script src="js/leisure.js"></script>
-    <script src="js/chat.js"></script>
     <script src="js/main.js"></script>
+    
+    <!-- Botpress Chatbot Integration -->
+    <script>
+        (function() {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.botpress.cloud/webchat/v3.5/inject.js';
+            script.async = true;
+            document.head.appendChild(script);
+            
+            script.onload = function() {
+                window.botpressWebChat.init({
+                    configUrl: 'https://files.bpcontent.cloud/2026/01/12/04/20260112043815-JSGWJ2YJ.json'
+                });
+            };
+        })();
+    </script>
 </body>
 </html>
