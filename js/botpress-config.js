@@ -1,23 +1,44 @@
 // ============================
-// Botpress Configuration
-// Configuration for the Botpress AI Chat Assistant
+// Botpress Configuration & Initialization
 // ============================
 
 const botpressConfig = {
-    // Botpress Configuration URL
     configUrl: 'https://files.bpcontent.cloud/2026/01/12/04/20260112043815-JSGWJ2YJ.json',
-    
-    // SDK Settings
     sdkUrl: 'https://cdn.botpress.cloud/webchat/v3.5/inject.js'
 };
 
+// Global state
+window.botpressReady = false;
+
 /**
- * Initialize Botpress chatbot
+ * Toggle/Show the Botpress chat widget
+ */
+window.toggleChatWidget = function() {
+    console.log('🎯 Chat button clicked');
+    
+    if (!window.botpressWebChat) {
+        console.error('❌ Botpress SDK not available');
+        console.log('⏳ Attempting to load SDK...');
+        loadBotpressSDK();
+        return;
+    }
+    
+    try {
+        console.log('📢 Sending show event to Botpress');
+        window.botpressWebChat.sendEvent({ type: 'show' });
+    } catch (error) {
+        console.error('❌ Error showing chat:', error);
+    }
+};
+
+/**
+ * Initialize Botpress with the config
  */
 function initBotpress() {
+    console.log('⚙️ Initializing Botpress...');
+    
     if (!window.botpressWebChat) {
-        console.warn('Botpress SDK not loaded yet, waiting...');
-        setTimeout(initBotpress, 500);
+        console.error('❌ botpressWebChat not available');
         return false;
     }
     
@@ -25,6 +46,7 @@ function initBotpress() {
         window.botpressWebChat.init({
             configUrl: botpressConfig.configUrl
         });
+        window.botpressReady = true;
         console.log('✅ Botpress initialized successfully');
         return true;
     } catch (error) {
@@ -34,70 +56,61 @@ function initBotpress() {
 }
 
 /**
- * Load Botpress SDK
+ * Load Botpress SDK from CDN
  */
 function loadBotpressSDK() {
+    console.log('📥 Loading Botpress SDK...');
+    
     if (window.botpressSDKLoaded) {
-        return; // Already loaded
+        console.log('ℹ️ SDK already loading or loaded');
+        return;
     }
+    
+    window.botpressSDKLoaded = true;
     
     const script = document.createElement('script');
     script.src = botpressConfig.sdkUrl;
     script.async = true;
+    
     script.onload = function() {
-        console.log('Botpress SDK loaded successfully');
-        window.botpressSDKLoaded = true;
-        // Wait for SDK to be ready
+        console.log('✅ SDK script loaded from CDN');
         setTimeout(initBotpress, 1000);
     };
+    
     script.onerror = function() {
-        console.error('Failed to load Botpress SDK, retrying...');
-        setTimeout(loadBotpressSDK, 3000);
+        console.error('❌ Failed to load SDK script');
+        window.botpressSDKLoaded = false;
+        
+        // Retry after 3 seconds
+        setTimeout(function() {
+            console.log('🔄 Retrying SDK load...');
+            window.botpressSDKLoaded = false;
+            loadBotpressSDK();
+        }, 3000);
     };
     
     document.head.appendChild(script);
 }
 
 /**
- * Toggle/Show chat widget
+ * Start the initialization process
  */
-function toggleChatWidget() {
-    console.log('Chat button clicked');
-    console.log('botpressWebChat available:', !!window.botpressWebChat);
-    
-    if (!window.botpressWebChat) {
-        console.warn('⚠️ Botpress not ready yet, initializing...');
-        setTimeout(toggleChatWidget, 500);
-        return;
-    }
-    
-    try {
-        window.botpressWebChat.sendEvent({
-            type: 'show'
-        });
-        console.log('✅ Chat widget toggled');
-    } catch (error) {
-        console.error('❌ Error toggling chat widget:', error);
-    }
-}
-
-// Load Botpress SDK when DOM is ready
-console.log('🔄 Botpress config loaded, waiting for DOM...');
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('📄 DOM ready, loading Botpress SDK...');
-        loadBotpressSDK();
-    });
-} else {
-    console.log('📄 DOM already loaded, loading Botpress SDK immediately...');
+function startBotpressInit() {
+    console.log('🚀 Starting Botpress initialization');
     loadBotpressSDK();
 }
 
-// Fallback: Try to initialize after 5 seconds if not done
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startBotpressInit);
+} else {
+    startBotpressInit();
+}
+
+// Safety: Also try after 3 seconds if not done
 setTimeout(function() {
-    if (!window.botpressSDKLoaded) {
-        console.log('⚠️ SDK not loaded after 5s, attempting manual load...');
-        loadBotpressSDK();
+    if (!window.botpressReady) {
+        console.log('⚠️ Botpress not ready after 3s, attempting init...');
+        startBotpressInit();
     }
-}, 5000);
+}, 3000);

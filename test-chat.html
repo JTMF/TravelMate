@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelMate - Chat Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #B40000;
+            margin-bottom: 20px;
+        }
+        .status {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .status.ready {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.waiting {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .console {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 15px 0;
+            line-height: 1.4;
+        }
+        button {
+            background: #B40000;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px 10px 0;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #8b0000;
+        }
+        .info {
+            background: #e7f3ff;
+            border-left: 4px solid #B40000;
+            padding: 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 TravelMate - Chatbot Test</h1>
+        
+        <div id="status" class="status waiting">⏳ Waiting for Botpress to load...</div>
+        
+        <div class="info">
+            <strong>ℹ️ Instructions:</strong>
+            <ol>
+                <li>Open browser console (F12 → Console tab)</li>
+                <li>Look for green messages indicating SDK and Botpress loaded</li>
+                <li>Click the button below to test the chat</li>
+                <li>The chat should appear in a popup/widget</li>
+            </ol>
+        </div>
+
+        <h3>Debug Console:</h3>
+        <div class="console" id="console"></div>
+
+        <button onclick="testChat()">📢 Test Chat Widget</button>
+        <button onclick="clearConsole()">Clear Console</button>
+
+        <div class="info" style="margin-top: 20px;">
+            <strong>What to look for:</strong>
+            <ul>
+                <li>✅ "SDK script loaded from CDN"</li>
+                <li>✅ "Botpress initialized successfully"</li>
+                <li>✅ No red error messages</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="js/botpress-config.js"></script>
+    <script>
+        // Capture console logs
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        
+        function addToConsole(message, type = 'log') {
+            const consoleEl = document.getElementById('console');
+            const line = document.createElement('div');
+            line.style.color = type === 'error' ? '#ff6b6b' : type === 'warn' ? '#ffb700' : '#00ff00';
+            line.textContent = message;
+            consoleEl.appendChild(line);
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+        }
+
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            addToConsole(args.join(' '), 'log');
+        };
+
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            addToConsole(args.join(' '), 'error');
+        };
+
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            addToConsole(args.join(' '), 'warn');
+        };
+
+        function updateStatus() {
+            const status = document.getElementById('status');
+            if (window.botpressReady && window.botpressWebChat) {
+                status.className = 'status ready';
+                status.innerHTML = '✅ Botpress is ready! Click the button below to test.';
+            } else {
+                status.className = 'status waiting';
+                status.innerHTML = '⏳ Still waiting for Botpress... Check console for details.';
+            }
+        }
+
+        function testChat() {
+            console.log('Test button clicked');
+            if (typeof toggleChatWidget === 'function') {
+                toggleChatWidget();
+            } else {
+                console.error('toggleChatWidget function not found');
+            }
+        }
+
+        function clearConsole() {
+            document.getElementById('console').innerHTML = '';
+        }
+
+        // Check status periodically
+        setInterval(updateStatus, 500);
+        updateStatus();
+
+        // Initial message
+        console.log('Page loaded, check if Botpress initializes below...');
+    </script>
+</body>
+</html>
