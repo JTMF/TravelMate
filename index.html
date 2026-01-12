@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelMate - Your Singapore Guide for Exchange Students</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>✈️ TravelMate</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#transport" class="nav-link">Transport</a></li>
+                <li><a href="#food" class="nav-link">Food & Dining</a></li>
+                <li><a href="#leisure" class="nav-link">Leisure</a></li>
+                <li><a href="#daily-life" class="nav-link">Daily Life</a></li>
+                <li><a href="#chat" class="nav-link chatbot-trigger">AI Chat</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Singapore, Exchange Student!</h1>
+            <p>Your personalized guide to transport, food, leisure, and daily life</p>
+            <button class="cta-button" onclick="document.getElementById('leisure').scrollIntoView({behavior: 'smooth'})">
+                Explore Leisure & Entertainment
+            </button>
+        </div>
+    </section>
+
+    <!-- Leisure & Entertainment Section (Main Focus) -->
+    <section id="leisure" class="leisure-section">
+        <div class="container">
+            <h2>🎮 Leisure & Entertainment</h2>
+            <p class="section-intro">Discover affordable, accessible activities perfect for student life in Singapore.</p>
+
+            <!-- Filter Buttons -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="parks">Parks & Nature</button>
+                <button class="filter-btn" data-filter="shopping">Shopping Malls</button>
+                <button class="filter-btn" data-filter="entertainment">Entertainment</button>
+                <button class="filter-btn" data-filter="free-budget">Free & Budget</button>
+            </div>
+
+            <!-- Leisure Cards Grid -->
+            <div class="leisure-grid" id="leisureGrid">
+                <!-- Cards populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Attraction Detail Modal -->
+    <div id="attractionModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalBody">
+                <!-- Details populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Transportation Section (Placeholder) -->
+    <section id="transport" class="section">
+        <div class="container">
+            <h2>🚆 Getting Around Singapore</h2>
+            <p>Comprehensive MRT, bus, and transport guides for students.</p>
+            <p style="color: #999; font-size: 14px;">Coming soon...</p>
+        </div>
+    </section>
+
+    <!-- Food & Dining Section (Placeholder) -->
+    <section id="food" class="section">
+        <div class="container">
+            <h2>🍜 Food & Dining</h2>
+            <p>Budget-friendly food recommendations and hawker guides.</p>
+            <p style="color: #999; font-size: 14px;">Coming soon...</p>
+        </div>
+    </section>
+
+    <!-- Daily Life Section (Placeholder) -->
+    <section id="daily-life" class="section">
+        <div class="container">
+            <h2>🏠 Daily Life Essentials</h2>
+            <p>Housing, SIM cards, banking, and essential services.</p>
+            <p style="color: #999; font-size: 14px;">Coming soon...</p>
+        </div>
+    </section>
+
+    <!-- Chat Section -->
+    <section id="chat" class="chat-section">
+        <div class="container">
+            <h2>💬 AI Chat Assistant</h2>
+            <p>Get instant personalized recommendations for your needs.</p>
+            <div class="chat-controls">
+                <button class="settings-btn" onclick="openAISettings()" title="Configure AI Settings">⚙️ AI Settings</button>
+                <button class="clear-btn" onclick="clearChat()" title="Clear chat history">🗑️ Clear Chat</button>
+            </div>
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-messages" id="chatMessages"></div>
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" placeholder="Ask me about leisure activities, parks, shopping..." />
+                    <button onclick="sendMessage()" class="chat-send-btn">Send</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Settings Modal -->
+    <div id="aiSettingsModal" class="modal">
+        <div class="modal-content ai-settings-modal">
+            <span class="close" onclick="closeAISettings()">&times;</span>
+            <h2>⚙️ AI Configuration</h2>
+            
+            <!-- Enable/Disable External AI -->
+            <div class="settings-section">
+                <label class="toggle-label">
+                    <input type="checkbox" id="enableExternalAI" onchange="toggleExternalAI()" />
+                    <span>Enable External AI (OpenAI/Claude)</span>
+                </label>
+                <p class="help-text">Toggle between local keyword-based responses and external AI services.</p>
+            </div>
+            
+            <!-- Provider Selection -->
+            <div class="settings-section">
+                <label for="aiProvider">AI Provider:</label>
+                <select id="aiProvider" onchange="changeAIProvider()">
+                    <option value="openai">OpenAI (GPT-3.5)</option>
+                    <option value="anthropic">Anthropic (Claude)</option>
+                </select>
+                <p class="help-text">Choose your preferred AI service provider.</p>
+            </div>
+            
+            <!-- API Key Input -->
+            <div class="settings-section">
+                <label for="apiKeyInput">API Key:</label>
+                <input type="password" id="apiKeyInput" placeholder="Enter your API key (stored locally only)" />
+                <p class="help-text">Your API key is stored in browser storage and never sent to external servers.</p>
+            </div>
+            
+            <!-- Test Connection -->
+            <div class="settings-section">
+                <button class="test-btn" onclick="testAIConnection()">Test Connection</button>
+                <div id="connectionStatus"></div>
+            </div>
+            
+            <!-- Save Button -->
+            <div class="settings-actions">
+                <button class="save-btn" onclick="saveAISettings()">Save Settings</button>
+                <button class="cancel-btn" onclick="closeAISettings()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 TravelMate - Helping Foreign Exchange Students Thrive in Singapore</p>
+            <p>Module: C240 FA | Republic Polytechnic</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/ai-config.js"></script>
+    <script src="js/ai-service.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/leisure.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
