@@ -29,6 +29,61 @@ body {
     background-color: var(--white);
 }
 
+/* ====== Floating Chat Icon Button ====== */
+.chat-icon-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-red), #8b0000);
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(180, 0, 0, 0.4);
+    z-index: 999;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-icon-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(180, 0, 0, 0.6);
+}
+
+.chat-icon-btn:active {
+    transform: scale(0.95);
+}
+
+.chat-icon {
+    display: inline-block;
+    animation: chatPulse 2s infinite;
+}
+
+@keyframes chatPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Mobile responsiveness for chat icon */
+@media (max-width: 480px) {
+    .chat-icon-btn {
+        width: 55px;
+        height: 55px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 24px;
+    }
+}
+
 /* ====== Navigation Bar ====== */
 .navbar {
     background-color: var(--white);

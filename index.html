@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <!-- Floating Chat Icon Button -->
+    <button id="chatIconBtn" class="chat-icon-btn" onclick="toggleChatWidget()" title="Open AI Chat Assistant">
+        <span class="chat-icon">💬</span>
+    </button>
+
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
@@ -118,6 +123,15 @@
     
     <!-- Botpress Chatbot - Standard Integration -->
     <script>
+        // Toggle chat widget visibility
+        function toggleChatWidget() {
+            if (window.botpressWebChat) {
+                window.botpressWebChat.sendEvent({
+                    type: 'show'
+                });
+            }
+        }
+        
         (function() {
             var d = document;
             var w = window;
@@ -125,7 +139,8 @@
             function loadBotpress() {
                 if (w.botpressWebChat) {
                     w.botpressWebChat.init({
-                        configUrl: 'https://files.bpcontent.cloud/2026/01/12/04/20260112043815-JSGWJ2YJ.json'
+                        configUrl: 'https://files.bpcontent.cloud/2026/01/12/04/20260112043815-JSGWJ2YJ.json',
+                        hideWidget: false
                     });
                 }
             }
