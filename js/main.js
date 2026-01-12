@@ -1,38 +1,39 @@
-// ============================
-// Chat Modal Logic
-// ============================
-
-// Open / close chat
-function toggleChatWidget() {
+// Toggle chat modal
+window.toggleChatWidget = function () {
     const modal = document.getElementById('chatModal');
-    if (!modal) return;
-
-    modal.classList.toggle('open');
-}
-
-// Clear / reset Botpress chat
-function resetBotpressChat() {
-    const iframe = document.getElementById('botpressChatFrame');
-    if (iframe) {
-        iframe.src = iframe.src; // reload iframe
+    if (modal) {
+        modal.classList.toggle('open');
     }
-}
+};
 
-// Close when clicking outside modal
+// Close modal when clicking outside
 document.addEventListener('click', function (e) {
     const modal = document.getElementById('chatModal');
     const btn = document.getElementById('chatIconBtn');
 
-    if (!modal || !modal.classList.contains('open')) return;
-
-    if (!modal.contains(e.target) && !btn.contains(e.target)) {
-        modal.classList.remove('open');
+    if (modal && modal.classList.contains('open')) {
+        if (!modal.contains(e.target) && !btn.contains(e.target)) {
+            modal.classList.remove('open');
+        }
     }
 });
 
-// Close on ESC
+// Close modal on Escape key
 document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
-        document.getElementById('chatModal')?.classList.remove('open');
+        const modal = document.getElementById('chatModal');
+        if (modal && modal.classList.contains('open')) {
+            modal.classList.remove('open');
+        }
     }
 });
+
+// ===============================
+// CLEAR CHAT (SAFE, REQUIRED)
+// ===============================
+function resetBotpressChat() {
+    const iframe = document.getElementById('botpressChatFrame');
+    if (iframe) {
+        iframe.src = iframe.src; // reload iframe = clear chat
+    }
+}

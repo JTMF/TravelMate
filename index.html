@@ -3,45 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelMate - Your Singapore Guide</title>
+    <title>TravelMate - Your Singapore Guide for Exchange Students</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<!-- Floating Chat Button -->
-<button id="chatIconBtn" class="chat-icon-btn" onclick="toggleChatWidget()">💬</button>
+<!-- Floating Chat Icon Button -->
+<button id="chatIconBtn" class="chat-icon-btn" onclick="toggleChatWidget()" title="Open AI Chat Assistant">
+    <span class="chat-icon">💬</span>
+</button>
 
 <!-- Chat Modal -->
 <div id="chatModal" class="chat-modal">
     <div class="chat-modal-content">
 
-        <!-- Chat Header (IMPORTANT) -->
+        <!-- CHAT HEADER (NEW, REQUIRED) -->
         <div class="chat-header">
             <button class="chat-modal-close" onclick="toggleChatWidget()">✕</button>
             <button class="delete-chat-btn" onclick="resetBotpressChat()">🗑️ Clear Chat</button>
         </div>
 
-        <!-- Botpress Iframe -->
+        <!-- BOTPRESS IFRAME (UNCHANGED SOURCE) -->
         <iframe
             id="botpressChatFrame"
-            src="https://cdn.botpress.cloud/webchat/v3.5/shareable.html?configUrl=https://files.bpcontent.cloud/2026/01/12/04/20260112043815-JSGWJ2YJ.json">
+            src="https://cdn.botpress.cloud/webchat/v3.5/shareable.html?configUrl=https://files.bpcontent.cloud/2026/01/12/04/20260112043815-JSGWJ2YJ.json"
+            style="width: 100%; height: 100%; border: none;">
         </iframe>
 
     </div>
 </div>
 
-<!-- Page Content (unchanged) -->
+<!-- Navigation Bar -->
 <nav class="navbar">
-    <h1>✈️ TravelMate</h1>
+    <div class="nav-container">
+        <div class="logo">
+            <h1>✈️ TravelMate</h1>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#transport" class="nav-link">Transport</a></li>
+            <li><a href="#food" class="nav-link">Food & Dining</a></li>
+            <li><a href="#leisure" class="nav-link">Leisure</a></li>
+            <li><a href="#daily-life" class="nav-link">Daily Life</a></li>
+            <li><a href="#chat" class="nav-link">AI Chat</a></li>
+        </ul>
+    </div>
 </nav>
 
-<section class="hero">
-    <h2>Welcome to Singapore</h2>
-</section>
+<!-- Sections (unchanged) -->
+<section id="home" class="hero"></section>
+<section id="leisure" class="leisure-section"></section>
+<section id="transport" class="section"></section>
+<section id="food" class="section"></section>
+<section id="daily-life" class="section"></section>
 
+<footer class="footer">
+    <p>&copy; 2026 TravelMate</p>
+</footer>
+
+<!-- Scripts (UNCHANGED ORDER) -->
 <script src="js/data.js"></script>
 <script src="js/leisure.js"></script>
 <script src="js/main.js"></script>
 <script src="js/botpress-config.js"></script>
+
 </body>
 </html>
