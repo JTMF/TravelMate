@@ -75,7 +75,6 @@ body {
 
 /* ====== Chat Modal ====== */
 .chat-modal {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -83,13 +82,13 @@ body {
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
-    animation: fadeIn 0.3s ease;
+    display: none;
+    align-items: center;
+    justify-content: center;
 }
 
 .chat-modal.open {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex !important;
 }
 
 @keyframes fadeIn {
