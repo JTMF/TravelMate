@@ -116,35 +116,43 @@
     <script src="js/leisure.js"></script>
     <script src="js/main.js"></script>
     
-    <!-- Botpress Chatbot Integration -->
-    <script
-        dangerouslyAllowHtml="true"
-        id="bp-web-widget"
-        src="https://cdn.botpress.cloud/webchat/v3.5/inject.js"
-        contentscript-id="fcf2cd53-c5d9-4d3e-b3cc-0281a6e33e5f"
-    ></script>
+    <!-- Botpress Chatbot - Standard Integration -->
     <script>
-        function initBotpress() {
-            if (window.botpressWebChat) {
-                window.botpressWebChat.init({
-                    configUrl: 'https://files.bpcontent.cloud/2026/01/12/04/20260112043815-JSGWJ2YJ.json',
-                    containerWidth: '100%',
-                    layoutWidth: 'full',
-                    showConversationStart: true,
-                    hideWidget: false
-                });
-            } else {
-                // Retry if widget not loaded yet
-                setTimeout(initBotpress, 1000);
+        (function() {
+            var d = document;
+            var w = window;
+            
+            function loadBotpress() {
+                if (w.botpressWebChat) {
+                    w.botpressWebChat.init({
+                        configUrl: 'https://files.bpcontent.cloud/2026/01/12/04/20260112043815-JSGWJ2YJ.json'
+                    });
+                }
             }
-        }
-        
-        // Initialize when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initBotpress);
-        } else {
-            initBotpress();
-        }
+            
+            // Load Botpress script
+            var s = d.createElement('script');
+            s.src = 'https://cdn.botpress.cloud/webchat/v3.5/inject.js';
+            s.onload = loadBotpress;
+            s.onerror = function() {
+                console.error('Failed to load Botpress SDK');
+                // Retry after 2 seconds
+                setTimeout(function() {
+                    var retry = d.createElement('script');
+                    retry.src = 'https://cdn.botpress.cloud/webchat/v3.5/inject.js';
+                    retry.onload = loadBotpress;
+                    d.head.appendChild(retry);
+                }, 2000);
+            };
+            d.head.appendChild(s);
+            
+            // Fallback initialization
+            setTimeout(function() {
+                if (w.botpressWebChat && !w.botpressWebChat.isInitialized) {
+                    loadBotpress();
+                }
+            }, 3000);
+        })();
     </script>
 </body>
 </html>

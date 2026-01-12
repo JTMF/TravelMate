@@ -303,50 +303,13 @@ body {
 #botpress-container {
     width: 100%;
     min-height: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 .botpress-chat-widget {
     width: 100%;
-    max-width: 100%;
-    min-height: 500px;
-    background-color: var(--white);
-    border-radius: 10px;
-    border: 2px solid var(--border-color);
-    padding: 0;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
 }
 
-/* Botpress Webchat Override Styles */
-.bp-webchat-container {
-    background-color: var(--white) !important;
-    border-radius: 10px !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    height: 500px !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.bp-webchat {
-    max-width: 100% !important;
-    width: 100% !important;
-    height: 500px !important;
-    border: none !important;
-    background-color: var(--white) !important;
-}
-
-/* Hide default BP widget styling conflicts */
-.bpw-widget-container {
-    position: relative !important;
-    height: auto !important;
-}
-
+/* Botpress Styles - Minimal Overrides */
 .bpw-chat-bubble {
     display: none !important;
 }
@@ -355,19 +318,6 @@ body {
 @media (max-width: 768px) {
     #botpress-container {
         min-height: 400px;
-    }
-    
-    .botpress-chat-widget {
-        min-height: 400px;
-        border-radius: 8px;
-    }
-    
-    .bp-webchat-container {
-        height: 400px !important;
-    }
-    
-    .bp-webchat {
-        height: 400px !important;
     }
 }
 
